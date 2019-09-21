@@ -9,21 +9,32 @@ template <typename T>
 class DSVector{
 private:
     DSVector<T> elements;
+    int vectorSize;
+    int capacity;
+    T* buffer;
 
 public:
+
+
+
     DSVector();
     ~DSVector();
 
-    void push(T const&);
-    int pop();
     int getSize();
+    int getCapacity() const;
+
+    DSVector<T>& operator=(DSVector x);
+    bool empty();//return true if empty
+
+    void push(T const&);
+    void pop_back();
+
     int getCapacity();
 
     T insert(T obj);
     T top() const; //return top element
-    T printVector();
+    T* printVector();
 
-    bool empty() const; //return true if empty
 
 };
 

@@ -5,9 +5,12 @@
 #include <cstring>
 #include <DSVector.h>
 
-template <typename T>
-DSVector<T>::DSVector(){
+template<class T>
+DSVector<T>::DSVector() {
     elements = nullptr;
+    capacity = 0;
+    vectorSize = 0;
+    buffer = 0;
 }
 
 template <typename T>
@@ -18,39 +21,53 @@ DSVector<T>::~DSVector(){
 }
 
 template <typename T>
-int DSVector<int>::getSize(){
+int DSVector<T>::getSize(){
     return elements.size();
+}
+
+template<class T>
+int DSVector<T>::getCapacity() const {
+    return capacity;
+}
+
+// Assignment operator
+template <typename T>
+DSVector<T>& DSVector<T>::operator=(DSVector<T> other){
+    swap(*this,other);
+    return *this;
 }
 
 template <typename T>
 // append copy of passed element
 void DSVector<T>::push(T const& elem) {
-   elements.push_back(elem);
+    elements.push_back(elem);
 }
 
 template <typename T>
-T DSVector<T>::printVector(){
-
+bool DSVector<T>::empty(){
+    return elements.getSize()==0;
 }
 
+
 template <typename T>
-int DSVector<T>::pop(){
-   if (elements.empty()) {
-      return 0;
-   }
-   // remove last element
-   elements.pop_back();
-   return 1;
+T* DSVector<T>::printVector(){
+    return elements;
+}
+
+template<typename T>
+void DSVector<T>::pop_back() {
+    if (vectorSize > 0)
+        vectorSize--;
 }
 
 template <typename T>
 T DSVector<T>::top () const {
-   if (elements.empty()) {
-      //throw out_of_range("Stack<>::top(): empty stack");
-   }
+    if (elements.empty()) {
+        //throw out_of_range("Stack<>::top(): empty stack");
+    }
 
-   // return copy of last element
-   return elements.back();
+    // return copy of last element
+    return elements.back();
 }
 
 #endif

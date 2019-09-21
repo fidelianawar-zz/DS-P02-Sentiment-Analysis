@@ -13,4 +13,5 @@ HEADERS += \
     ../../../../Downloads/catch.hpp \
     DSVector.h \
     catch.hpp \
-    test.h
+    test.h \
+    testingcatch.h
