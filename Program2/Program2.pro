@@ -4,14 +4,16 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        DSString.cpp \
         DSVector.cpp \
-        main.cpp \
+        sentimentmain.cpp \
         test.cpp
 
 HEADERS += \
     ../../../../Downloads/catch(1).hpp \
     ../../../../Downloads/catch.hpp \
+    DSString.h \
     DSVector.h \
     catch.hpp \
-    test.h \
-    testingcatch.h
+    sentimentmain.h \
+    test.h

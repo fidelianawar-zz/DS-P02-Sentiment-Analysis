@@ -14,11 +14,10 @@ private:
     T* buffer;
 
 public:
-
-
-
     DSVector();
     ~DSVector();
+
+    void at(int i);
 
     int getSize();
     int getCapacity() const;
@@ -26,13 +25,14 @@ public:
     DSVector<T>& operator=(DSVector x);
     bool empty();//return true if empty
 
-    void push(T const&);
+    void push_back(T const&);
     void pop_back();
 
-    int getCapacity();
+    bool binarySearch(T variableElement);
+    void quickSort(DSVector<T> a, int b, int c);
+    void clear();
 
     T insert(T obj);
-    T top() const; //return top element
     T* printVector();
 
 
