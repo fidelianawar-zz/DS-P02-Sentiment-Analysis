@@ -60,6 +60,7 @@ void sentimentMain::readTrainFile(DSString trainFile){
     //reads first line about column info
     trainData.getline(firstLine, 256);
 
+    //reading until end of file
     while(trainData.eof()){
         for(int j = 0; j < 4; j++){
             if(j == 0){
