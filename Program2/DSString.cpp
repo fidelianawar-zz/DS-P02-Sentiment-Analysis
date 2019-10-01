@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <cstring>
-#include <dsstring.h>
+#include <DSString.h>
 
 using namespace std;
 
@@ -74,7 +74,7 @@ using namespace std;
         }
     }
 
-    bool DSString::operator== (const DSString &object){
+    bool DSString::operator== (const DSString &object) const{
         if(strcmp(this->data, object.data) == 0){
             return true;
         }

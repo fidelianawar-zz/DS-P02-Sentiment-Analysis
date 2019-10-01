@@ -5,9 +5,9 @@ CONFIG -= qt
 
 SOURCES += \
         DSString.cpp \
-        DSVector.cpp \
+        main.cpp \
         sentimentmain.cpp \
-        test.cpp
+        tests.cpp
 
 HEADERS += \
     ../../../../Downloads/catch(1).hpp \
@@ -15,5 +15,4 @@ HEADERS += \
     DSString.h \
     DSVector.h \
     catch.hpp \
-    sentimentmain.h \
-    test.h
+    sentimentmain.h
