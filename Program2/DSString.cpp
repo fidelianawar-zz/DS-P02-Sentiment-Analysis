@@ -95,14 +95,22 @@ using namespace std;
             return true;
         }
     }
+    //bool operator< (const char*);
+    bool DSString::operator> (const char *p){
+        if(data > p){
+            return true;
+        }
+    }
+    //bool operator< (const DSString&);
+    bool DSString::operator> (const DSString& r){
+        if(data > r.data){
+            return true;
+        }
+    }
 
     //char& operator[] (const int);
     char& DSString::operator[] (const int j){
         return *(data+j);
-//        if(j >= strlen(data)){
-//            throw 1;
-//            return data[j];
-//        }
     }
 
     //int size();

@@ -23,6 +23,8 @@ public:
     bool operator== (const DSString&) const;
     bool operator< (const char*);
     bool operator< (const DSString&);
+    bool operator> (const char*);
+    bool operator> (const DSString&);
     char& operator[] (const int);
 
     int size();

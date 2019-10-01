@@ -24,7 +24,6 @@ int main(int argc, char *argv[])
     else{
         cout << "we got here";
 
-        /*
         sentimentMain newGame;
 
         for(int i = 0; i < argc; i++){
@@ -46,6 +45,6 @@ int main(int argc, char *argv[])
                 newGame.readTestTargetFile(argv[i]);
             }
         }
-        */
+
     }
 }
