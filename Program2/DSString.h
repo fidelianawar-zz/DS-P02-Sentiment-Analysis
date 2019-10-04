@@ -18,7 +18,9 @@ public:
     DSString& operator= (const char*);
     DSString& operator= (const DSString&);
     DSString operator+ (const DSString&);
+    DSString operator- (const DSString&);
     DSString& operator+= (const DSString&);
+    DSString& operator-= (const DSString&);
     bool operator== (const char*);
     bool operator== (const DSString&) const;
     bool operator< (const char*);

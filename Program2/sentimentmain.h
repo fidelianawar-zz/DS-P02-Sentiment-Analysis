@@ -15,7 +15,7 @@ public:
     DSVector<DSString> ID;
     DSVector<DSString> userName;
     DSVector<DSString> tweet;
-    char* buffer = new char[256];
+    char buffer[1000];
 
     sentimentMain();
     ~sentimentMain();
@@ -25,8 +25,10 @@ public:
     void readTestFile(DSString test);
     void readTestTargetFile(DSString target);
 
-    int *tweetIDTrain;
-    int *tweetIDTarget;
+    void storeWords(DSVector<DSString> tweet);
+
+    /*int *tweetIDTrain;
+    int *tweetIDTarget*/;
 };
 
 #endif // SENTIMENTMAIN_H

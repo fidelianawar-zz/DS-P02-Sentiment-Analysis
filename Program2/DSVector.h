@@ -12,13 +12,12 @@ private:
     T* elements;
     int vectorSize;
     int capacity;
-    T* buffer;
 
 public:
     DSVector();
     ~DSVector();
 
-    void at(int i);
+    T at(int i);
 
     int getSize();
     int getCapacity() const;
@@ -44,13 +43,10 @@ DSVector<T>::DSVector() {
     capacity = 0;
     elements = new T[capacity];
     vectorSize = 0;
-    buffer = 0;
 }
 template <typename T>
 DSVector<T>::~DSVector(){
-    if(elements){
-        delete elements;
-    }
+    delete[] elements;
 }
 
 template <typename T>
@@ -62,6 +58,7 @@ template<class T>
 int DSVector<T>::getCapacity() const {
     return capacity;
 }
+
 // Assignment operator
 template <typename T>
 DSVector<T>& DSVector<T>::operator=(DSVector<T> other){
@@ -79,23 +76,27 @@ template <typename T>
 void DSVector<T>::push_back(T const& elem) {
     if(vectorSize >= capacity){
         capacity += 10;
-        T* temp = new DSVector[capacity];
+        T* temp = new T[capacity];
         for(int i = 0; i < vectorSize; i++){
             temp[i] = elements[i];
         }
-        temp = elements;
         delete [] elements;
+        elements = temp;
+
     }
-    elements = elem;
+    elements[vectorSize] = elem;
     vectorSize++;
 }
 
 template <typename T>
-void DSVector<T>::at(int index){
+T DSVector<T>::at(int index){
     if(index < 0 || index >= vectorSize){
         cerr << "not a valid index to access";
+        exit(1);
     }
+    return elements[index];
 }
+
 template <typename T>
 void DSVector<T>::quickSort(DSVector<T> elements, int left, int right) {
       int i = left, j = right;
@@ -152,7 +153,10 @@ bool DSVector<T>::binarySearch(T var){
 
 template <typename T>
 T* DSVector<T>::printVector(){
-    return elements;
+    for(int i = 0; i < vectorSize; i++){
+        cout << elements[i] << " ";
+    }
+    cout << endl;
 }
 
 template<typename T>
