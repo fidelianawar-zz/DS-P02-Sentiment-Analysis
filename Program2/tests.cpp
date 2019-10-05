@@ -50,3 +50,19 @@ TEST_CASE("DSVector", "[DSString]"){
     //DSVector<int> vector1 = {0, 1, 2};
 
 }
+TEST_CASE("DSString substring beginning", "[DSString]"){
+    DSString string1 = "array of elements";
+    REQUIRE(string1.substring(0,6) == "array ");
+}
+TEST_CASE("DSString last character", "[DSString]"){
+    DSString string1 = "for";
+    REQUIRE(string1.substring(0,2) == "fo");
+}
+TEST_CASE("DSString last chars", "[DSString]"){
+    DSString string1 = "for";
+    REQUIRE(string1.substring(0,3) == "for");
+}
+TEST_CASE("DSString not first index", "[DSString]"){
+    DSString string1 = "for your information";
+    REQUIRE(string1.substring(6,10) == "ur i");
+}

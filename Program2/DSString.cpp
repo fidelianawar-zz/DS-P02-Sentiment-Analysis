@@ -15,11 +15,10 @@ DSString::DSString(){
 DSString::DSString(const char* x){
     data = new char[strlen(x)+1];
     strcpy(data, x);
+
 }
 
 DSString::DSString(const DSString& r){
-    if(this==&r)
-        return;
     data = new char[strlen(r.data)+1];
     strcpy(data, r.data);
 }
@@ -161,16 +160,20 @@ int DSString::size(){
  * b+ : count forward from a, b- : count backaward
  */
 DSString DSString::substring(int beg, int end){
-    if(beg >= 0 && end > beg){
-        char* temp = new char[end-beg+1];
-        int length = end - beg;
-        strncpy(temp, data, length);
-        DSString res(temp);
-
-        delete [] temp;
-        return res;
+    const int length = end-beg+1;
+    char* string1 = new char[length];
+    if(end >= 0){
+        for(int i = 0; i < (length-1); i++){
+            string1[i] = data[beg+i];
+        }
     }
+    string1[length-1] = '\0';
+    DSString sub = DSString(string1);
+    delete [] string1;
+
+    return sub;
 }
+
 
 //simply returns data
 char* DSString::c_str(){
@@ -184,3 +187,47 @@ std:: ostream& operator<< (std::ostream& OS, const DSString& s){
 
 
 #endif
+
+/*
+ * int i,j;
+        int size=0;size=(end-beg);
+        char *newW=new char[size];
+        for(i=0,j=beg;j<end;i++,j++)
+        {
+            newW[i]=data[j];
+        }
+        return newW;
+*/
+
+
+/*
+ * char* string1 = new char[end+1];
+   if(end >= 0){
+       for(int i = 0; i < end; i++){
+           string1[i] = data[beg+i];
+       }
+   }
+
+   if(end<0){
+       for(int i = 0; i > end; i--){
+            string1[i] = data[beg - end - i];
+       }
+   }
+
+   DSString sub = DSString(string1);
+   delete [] string1;
+   for(int i = 0; i<end;i++){
+       cout<<sub[i];
+   }
+   return string1;
+ */
+/*
+ * if(beg >= 0 && end > beg){
+        char* temp = new char[(end-beg)+1];
+        int length = end-beg+1;
+        strncpy(temp, data, length);
+        DSString res(temp);
+        delete [] temp;
+        return res;
+    }
+ */

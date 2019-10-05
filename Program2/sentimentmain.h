@@ -11,10 +11,16 @@ class sentimentMain
 private:
 public:
 
-    DSVector<DSString> rowNumbers;
-    DSVector<DSString> ID;
-    DSVector<DSString> userName;
-    DSVector<DSString> tweet;
+    DSVector<DSString> rowNumbersTrain;
+    DSVector<DSString> IDTrain;
+    DSVector<DSString> userNameTrain;
+    DSVector<DSString> tweetTrain;
+
+    DSVector<DSString> rowNumbersTest;
+    DSVector<DSString> IDTest;
+    DSVector<DSString> userNameTest;
+    DSVector<DSString> tweetTest;
+
     char buffer[1000];
 
     sentimentMain();
@@ -25,7 +31,7 @@ public:
     void readTestFile(DSString test);
     void readTestTargetFile(DSString target);
 
-    void storeWords(DSVector<DSString> tweet);
+    void storeWords();
 
     /*int *tweetIDTrain;
     int *tweetIDTarget*/;

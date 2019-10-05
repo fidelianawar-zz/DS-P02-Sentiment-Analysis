@@ -19,6 +19,7 @@ int runCatchTests(int argc, char* argv[1]){
 
 int main(int argc, char *argv[])
 {
+
     if(argc == 1){
         return runCatchTests(argc, argv);
     }
