@@ -13,6 +13,12 @@ sentimentMain::sentimentMain()
 }
 sentimentMain::~sentimentMain(){
 }
+void sentimentMain::setSentiment(int _sentiment){
+    sentiment = _sentiment;
+}
+int sentimentMain::getSentiment(){
+    return sentiment;
+}
 
 void sentimentMain::readTrainFile(DSString trainFile){
     ifstream trainData(trainFile.c_str());
@@ -49,9 +55,37 @@ void sentimentMain::readTrainFile(DSString trainFile){
     storeWords();
 }
 
+void sentimentMain::readTrainTargetFile(DSString target){
+    ifstream testData(target.c_str());
+    if (!testData.is_open()) {
+        cerr << "Unable to open test file" << endl;
+        exit(1);   // call system to stop
+    }
+
+    testData.ignore(256, '\n');
+
+    //reading until end of file
+    for(int i = 0; i < 11; i++){
+        for(int j = 0; j < 4; j++){
+            if(j == 0){
+                testData.getline(buffer,500, ',');
+                rowNumbersTrainTarget.push_back(buffer);
+            }
+            else if(j == 1){
+                testData.getline(buffer,500, ',');
+                sentimentTrainTarget.push_back(buffer);
+
+            }
+            else if(j == 2){
+                testData.getline(buffer,500, ',');
+                IDTrainTarget.push_back(buffer);
+            }
+        }
+    }
+}
+
 void sentimentMain::storeWords(){
 
-    DSVector<DSString> wordsVector;
     int nonLetterCounter = 0;
     int startCounter = 0;
 
@@ -74,40 +108,61 @@ void sentimentMain::storeWords(){
     wordsVector.printVector();
 }
 
+void sentimentMain::classifier(){
 
+    DSVector<DSString> positiveWords;
+    DSVector<DSString> negativeWords;
 
+    for(int i = 0; i < rowNumbersTrain.getSize(); i++){
+        if(rowNumbersTrain.at(i) == rowNumbersTrainTarget.at(i)){
+            for(int j = 0; j <rowNumbersTrainTarget.getSize(); j++){
+                if(sentimentTrainTarget.at(j) == 0){
+                    positiveWords.push_back(wordsVector.at(i));
+                }
+                else{
+                    negativeWords.push_back(wordsVector.at(i));
+                }
+            }
+        }
+    }
+}
 
-void sentimentMain::readTestFile(DSString testFile){
-    ifstream testData(testFile.c_str());
-    if (!testData.is_open()) {
-        cerr << "Unable to open test file" << endl;
+void sentimentMain::readTestFile(DSString test){
+    ifstream targetData(test.c_str());
+    if (!targetData.is_open()) {
+        cerr << "Unable to open train file" << endl;
         exit(1);   // call system to stop
     }
 
-    testData.ignore(256, '\n');
+    targetData.ignore(256, '\n');
 
     //reading until end of file
     for(int i = 0; i < 11; i++){
         for(int j = 0; j < 4; j++){
             if(j == 0){
-                testData.getline(buffer,500, ',');
-                rowNumbersTest.push_back(buffer);
+                targetData.getline(buffer,500, ',');
+                rowNumbersTrain.push_back(buffer);
             }
             else if(j == 1){
-                testData.getline(buffer,500, ',');
-                IDTest.push_back(buffer);
+                targetData.getline(buffer,500, ',');
+                IDTrain.push_back(buffer);
 
             }
             else if(j == 2){
-                testData.getline(buffer,500, ',');
-                userNameTest.push_back(buffer);
+                targetData.getline(buffer,500, ',');
+                userNameTrain.push_back(buffer);
             }
             else if(j == 3){
-                testData.getline(buffer,500);
-                tweetTest.push_back(buffer);
+                targetData.getline(buffer,500);
+                tweetTrain.push_back(buffer);
             }
+
         }
-        tweetTest.printVector();
     }
+    storeWords();
 }
+
+
+
+
 
