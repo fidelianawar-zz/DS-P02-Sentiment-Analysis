@@ -50,8 +50,7 @@ public:
     int getSentiment();
     void repeatedWord(DSString repeat);
 
-    void storeWords();
-    void sentimentOrganizer();
+    void classifyWords();
     void sentimentAnalyzer();
 
     /*int *tweetIDTrain;

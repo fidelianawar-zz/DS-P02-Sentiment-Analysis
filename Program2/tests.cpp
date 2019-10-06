@@ -66,3 +66,31 @@ TEST_CASE("DSString not first index", "[DSString]"){
     DSString string1 = "for your information";
     REQUIRE(string1.substring(6,10) == "ur i");
 }
+TEST_CASE("DSVector quick sort", "[DSVector]"){
+    DSVector<DSString> b;
+    b.push_back("abcdefg");
+    b.push_back("String1");
+    b.push_back("hijklm");
+    b.push_back("qrstuv");
+    b.quickSort(0,b.getSize()-1);
+    REQUIRE(b.at(0) == "String1");
+}
+
+TEST_CASE("DSVector quick sort again", "[DSVector]"){
+    DSVector<DSString> b;
+    b.push_back("123");
+    b.push_back("string");
+    b.push_back("hijklm");
+    b.push_back("qrstuv");
+    b.quickSort(0,b.getSize()-1);
+    REQUIRE(b.at(0) == "123");
+}
+TEST_CASE("DSVector delete", "[DSString]"){
+    DSVector<DSString> b;
+    b.push_back("123");
+    b.push_back("123");
+    b.push_back("hijklm");
+    b.push_back("qrstuv");
+    b.deleteRepeated();
+    REQUIRE(b.getSize() == 3);
+}

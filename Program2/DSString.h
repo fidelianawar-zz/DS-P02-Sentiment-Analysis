@@ -29,6 +29,8 @@ public:
     bool operator> (const DSString&);
     char& operator[] (const int);
 
+    void toLowerCase(DSString capitals);
+
     int size();
 
     DSString substring(int a, int b);

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <DSString.h>
 
 using namespace std;
 
@@ -26,10 +27,11 @@ public:
     bool empty();//return true if empty
 
     void push_back(T const&);
+    void deleteRepeated();
     void pop_back();
 
     bool binarySearch(T variableElement);
-    void quickSort(DSVector<T> a, int b, int c);
+    void quickSort(int b, int c);
     void clear();
 
     T insert(T obj);
@@ -98,17 +100,36 @@ T DSVector<T>::at(int index){
 }
 
 template <typename T>
-void DSVector<T>::quickSort(DSVector<T> elements, int left, int right) {
+// delete repeated elements
+void DSVector<T>::deleteRepeated() {
+    T* temp = new T[capacity];
+    int counter = 0;
+    int counter_size = 0;
+    for(int i = 0; i < vectorSize; i++){
+        if(!(elements[i] == elements[i+1])){
+            temp[counter] = elements[i];
+            counter++;
+            counter_size++;
+        }
+    }
+    delete [] elements;
+    elements = temp;
+    vectorSize = counter_size;
+
+}
+
+template <typename T>
+void DSVector<T>::quickSort(int left, int right) {
       int i = left, j = right;
-      int temp;
-      int pivot = elements[(left + right) / 2];
-      /* partition */
+      DSString temp;
+
+      DSString pivot = elements[((left+right)/2)];
 
       while (i <= j) {
             while (elements[i] < pivot){
                   i++;
             }
-            while (elements[j] > pivot){
+            while (pivot < elements[j]){
                   j--;
             }
             if (i <= j) {
@@ -119,11 +140,11 @@ void DSVector<T>::quickSort(DSVector<T> elements, int left, int right) {
                   j--;
             }
       }
-      /* recursion */
+
       if (left < j)
-            quickSort(elements, left, j);
+            quickSort(left, j);
       if (i < right)
-            quickSort(elements, i, right);
+            quickSort(i, right);
 }
 
 template <typename T>

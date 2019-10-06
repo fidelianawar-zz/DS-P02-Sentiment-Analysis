@@ -55,7 +55,7 @@ void sentimentMain::readTrainFile(DSString trainFile){
     }
     //rowNumbersTrain.printVector();
 
-    storeWords();
+    classifyWords();
 }
 
 void sentimentMain::readTrainTargetFile(DSString target){
@@ -91,10 +91,12 @@ void sentimentMain::readTrainTargetFile(DSString target){
     //cout << sentimentTrainTarget.at(0);
 }
 
-void sentimentMain::storeWords(){
+void sentimentMain::classifyWords(){
 
     int letterCounter = 0;
     int startCounter = 0;
+    int frequency = 0;
+
 
     for(int i = 0; i < rowNumbersTrain.getSize(); i++){
         if(rowNumbersTrain.at(i) == rowNumbersTrainTarget.at(i)){
@@ -107,6 +109,7 @@ void sentimentMain::storeWords(){
                     }
                     else if(tempTweet[j] == ' ' || (!(tempTweet[j] > 64 && tempTweet[j] < 91) || (tempTweet[j] > 96 && tempTweet[j] < 123))){
                         word = tempTweet.substring(startCounter, letterCounter);
+                        word.toLowerCase(word);
                         letterCounter++;
                         startCounter = letterCounter;
                         positiveWords.push_back(word);
@@ -125,6 +128,7 @@ void sentimentMain::storeWords(){
                     }
                     else if(tempTweet[j] == ' ' || (!(tempTweet[j] > 64 && tempTweet[j] < 91) || (tempTweet[j] > 96 && tempTweet[j] < 123))){
                         word = tempTweet.substring(startCounter, letterCounter);
+                        word.toLowerCase(word);
                         letterCounter++;
                         startCounter = letterCounter;
                         negativeWords.push_back(word);
@@ -135,23 +139,15 @@ void sentimentMain::storeWords(){
             }
         }
     }
-    negativeWords.printVector();
+
+    negativeWords.quickSort(0,negativeWords.getSize()-1);
+    positiveWords.quickSort(0,negativeWords.getSize()-1);
+
+    for(int i = 0; i < negativeWords.getSize(); i++){
+
+
+    }
 }
-
-//void sentimentMain::sentimentOrganizer(){
-//    for(int i = 0; i < rowNumbersTrain.getSize(); i++){
-//        if(rowNumbersTrain.at(i) == rowNumbersTrainTarget.at(i)){
-//            if(sentimentTrainTarget.at(i) == "4"){
-
-//                positiveWords.push_back(wordsVector.at(i));
-//            }
-//            else if(sentimentTrainTarget.at(i) == "0"){
-//                negativeWords.push_back(wordsVector.at(i));
-//            }
-//        }
-//    }
-//    positiveWords.printVector();
-//}
 
 void sentimentMain::readTestFile(DSString test){
     ifstream targetData(test.c_str());
@@ -185,7 +181,7 @@ void sentimentMain::readTestFile(DSString test){
 
         }
     }
-    storeWords();
+    classifyWords();
 }
 
 void sentimentMain::readTestTargetFile(DSString target){
@@ -219,9 +215,7 @@ void sentimentMain::readTestTargetFile(DSString target){
 
 
 void sentimentMain::sentimentAnalyzer(){
-    for(int i = 0; i < rowNumbersTest.getSize(); i++){
 
-    }
 }
 
 

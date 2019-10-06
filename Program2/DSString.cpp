@@ -109,45 +109,71 @@ bool DSString::operator== (const DSString &object) const{
 
 //bool operator< (const char*);
 bool DSString::operator< (const char *p){
-    if(data < p){
-        return true;
-    }
-}
-//bool operator< (const DSString&);
-bool DSString::operator< (const DSString& r){
-    int minLength;
-    if(strlen(data) < strlen(r.data)){
-        minLength = strlen(data);
-    }
-    else{
-        minLength = strlen(r.data);
-    }
-    for(int i = 0; i < minLength; i++){
-        if(data[i] < r.data[i]){
-            return true;
-        }
-        else if(data[i] > r.data[i]){
-            return false;
-        }
-    }
-    if(strlen(data) < strlen(r.data)){
+    int n;
+    n = strcmp(data,p);
+    if(n < 0){
         return true;
     }
     else{
         return false;
     }
+
+}
+//bool operator< (const DSString&);
+bool DSString::operator< (const DSString& r){
+    int n;
+    n = strcmp(data,r.data);
+    if(n < 0){
+        return true;
+    }
+    else{
+        return false;
+    }
+
+//    int minLength;
+//    if(strlen(data) < strlen(r.data)){
+//        minLength = strlen(data);
+//    }
+//    else{
+//        minLength = strlen(r.data);
+//    }
+//    for(int i = 0; i < minLength; i++){
+//        if(data[i] < r.data[i]){
+//            return true;
+//        }
+//        else if(data[i] > r.data[i]){
+//            return false;
+//        }
+//    }
+//    if(strlen(data) < strlen(r.data)){
+//        return true;
+//    }
+//    else{
+//        return false;
+//    }
 }
 
 //bool operator< (const char*);
 bool DSString::operator> (const char *p){
-    if(data > p){
+    int n;
+    n = strcmp(data,p);
+    if(n > 0){
         return true;
     }
+    else{
+        return false;
+    }
+
 }
 //bool operator< (const DSString&);
 bool DSString::operator> (const DSString& r){
-    if(data > r.data){
+    int n;
+    n = strcmp(data,r.data);
+    if(n > 0){
         return true;
+    }
+    else{
+        return false;
     }
 }
 
@@ -191,6 +217,14 @@ char* DSString::c_str(){
 std:: ostream& operator<< (std::ostream& OS, const DSString& s){
     OS << s.data;
     return OS;
+}
+
+void DSString::toLowerCase(DSString capitals){
+    for(int i = 0; i < capitals.size(); i++){
+        if(capitals[i] > 64 && capitals[i] < 91){
+            capitals[i] + 32;
+        }
+    }
 }
 
 
