@@ -53,38 +53,42 @@ void sentimentMain::readTrainFile(DSString trainFile){
 
         }
     }
-    //cout << tweetTrain.at(1);
+    //rowNumbersTrain.printVector();
 
     storeWords();
 }
 
 void sentimentMain::readTrainTargetFile(DSString target){
-    ifstream testData(target.c_str());
-    if (!testData.is_open()) {
-        cerr << "Unable to open test file" << endl;
+
+    ifstream targetData(target.c_str());
+    if (!targetData.is_open()) {
+        cerr << "Unable to open train target file" << endl;
         exit(1);   // call system to stop
     }
 
-    testData.ignore(256, '\n');
+    //ignoring first line of file
+    targetData.ignore(256, '\n');
 
     //reading until end of file
     for(int i = 0; i < 11; i++){
-        for(int j = 0; j < 4; j++){
+        for(int j = 0; j < 3; j++){
             if(j == 0){
-                testData.getline(buffer,500, ',');
+                targetData.getline(buffer,500, ',');
                 rowNumbersTrainTarget.push_back(buffer);
             }
             else if(j == 1){
-                testData.getline(buffer,500, ',');
+                targetData.getline(buffer,500, ',');
                 sentimentTrainTarget.push_back(buffer);
 
             }
             else if(j == 2){
-                testData.getline(buffer,500, ',');
+                targetData.getline(buffer,500);
                 IDTrainTarget.push_back(buffer);
             }
+
         }
     }
+    //cout << sentimentTrainTarget.at(0);
 }
 
 void sentimentMain::storeWords(){
@@ -92,48 +96,67 @@ void sentimentMain::storeWords(){
     int letterCounter = 0;
     int startCounter = 0;
 
-    //change to j < tweetTrain.getSize() later
-    for(int i = 0; i < 1; i++){
-
-        DSString tempTweet = tweetTrain.at(i);
-
-        for(int j = 0; j < tempTweet.size(); j++){
-            DSString word;
-            if((tempTweet[j] > 64 && tempTweet[j] < 91) || (tempTweet[j] > 96 && tempTweet[j] < 123)){
-                letterCounter++;
-            }
-            else if(tempTweet[j] == ' ' || (!(tempTweet[j] > 64 && tempTweet[j] < 91) || (tempTweet[j] > 96 && tempTweet[j] < 123))){
-                word = tempTweet.substring(startCounter, letterCounter);
-                letterCounter++;
-                startCounter = letterCounter;
-                wordsVector.push_back(word);
-            }
-        }
-        wordsVector.printVector();
-        sentimentOrganizer();
-    }
-}
-
-void sentimentMain::sentimentOrganizer(){
-
     for(int i = 0; i < rowNumbersTrain.getSize(); i++){
         if(rowNumbersTrain.at(i) == rowNumbersTrainTarget.at(i)){
-            for(int j = 0; j < rowNumbersTrainTarget.getSize(); j++){
-                if(sentimentTrainTarget.at(j) == "4"){
-                    positiveWords.push_back(wordsVector.at(i));
+            if(sentimentTrainTarget.at(i) == "0"){
+                DSString tempTweet = tweetTrain.at(i);
+                for(int j = 0; j < tempTweet.size(); j++){
+                    DSString word;
+                    if((tempTweet[j] > 64 && tempTweet[j] < 91) || (tempTweet[j] > 96 && tempTweet[j] < 123)){
+                        letterCounter++;
+                    }
+                    else if(tempTweet[j] == ' ' || (!(tempTweet[j] > 64 && tempTweet[j] < 91) || (tempTweet[j] > 96 && tempTweet[j] < 123))){
+                        word = tempTweet.substring(startCounter, letterCounter);
+                        letterCounter++;
+                        startCounter = letterCounter;
+                        positiveWords.push_back(word);
+                    }
                 }
-                else{
-                    negativeWords.push_back(wordsVector.at(i));
+                letterCounter = 0;
+                startCounter = 0;
+            }
+            else if(sentimentTrainTarget.at(i) == "4"){
+                DSString tempTweet = tweetTrain.at(i);
+
+                for(int j = 0; j < tempTweet.size(); j++){
+                    DSString word;
+                    if((tempTweet[j] > 64 && tempTweet[j] < 91) || (tempTweet[j] > 96 && tempTweet[j] < 123)){
+                        letterCounter++;
+                    }
+                    else if(tempTweet[j] == ' ' || (!(tempTweet[j] > 64 && tempTweet[j] < 91) || (tempTweet[j] > 96 && tempTweet[j] < 123))){
+                        word = tempTweet.substring(startCounter, letterCounter);
+                        letterCounter++;
+                        startCounter = letterCounter;
+                        negativeWords.push_back(word);
+                    }
                 }
+                letterCounter = 0;
+                startCounter = 0;
             }
         }
     }
+    negativeWords.printVector();
 }
+
+//void sentimentMain::sentimentOrganizer(){
+//    for(int i = 0; i < rowNumbersTrain.getSize(); i++){
+//        if(rowNumbersTrain.at(i) == rowNumbersTrainTarget.at(i)){
+//            if(sentimentTrainTarget.at(i) == "4"){
+
+//                positiveWords.push_back(wordsVector.at(i));
+//            }
+//            else if(sentimentTrainTarget.at(i) == "0"){
+//                negativeWords.push_back(wordsVector.at(i));
+//            }
+//        }
+//    }
+//    positiveWords.printVector();
+//}
 
 void sentimentMain::readTestFile(DSString test){
     ifstream targetData(test.c_str());
     if (!targetData.is_open()) {
-        cerr << "Unable to open train file" << endl;
+        cerr << "Unable to open test file" << endl;
         exit(1);   // call system to stop
     }
 
@@ -168,7 +191,7 @@ void sentimentMain::readTestFile(DSString test){
 void sentimentMain::readTestTargetFile(DSString target){
     ifstream testTarget(target.c_str());
     if (!testTarget.is_open()) {
-        cerr << "Unable to open test file" << endl;
+        cerr << "Unable to open test target file" << endl;
         exit(1);   // call system to stop
     }
 
@@ -187,7 +210,7 @@ void sentimentMain::readTestTargetFile(DSString target){
 
             }
             else if(j == 2){
-                testTarget.getline(buffer,500, ',');
+                testTarget.getline(buffer,500);
                 IDTestTarget.push_back(buffer);
             }
         }

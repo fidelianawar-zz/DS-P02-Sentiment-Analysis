@@ -90,6 +90,9 @@ bool DSString::operator== (const char* s){
     if(strcmp(this->data, s) == 0){
         return true;
     }
+    else{
+        return false;
+    }
 }
 
 bool DSString::operator== (const DSString &object) const{

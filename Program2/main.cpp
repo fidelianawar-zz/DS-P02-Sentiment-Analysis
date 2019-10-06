@@ -30,12 +30,11 @@ int main(int argc, char *argv[])
         for(int i = 0; i < argc; i++){
             if(i == 1){
                 trainData.open(argv[i]);
+                trainTargetFile.open(argv[2]);
+                newGame.readTrainTargetFile(argv[2]);
                 newGame.readTrainFile(argv[i]);
             }
-            else if(i == 2){
-                trainTargetFile.open(argv[i]);
-                //newGame.readTrainTargetFile(argv[i]);
-            }
+
             else if(i == 3){
                 testData.open(argv[i]);
                 //newGame.readTestFile(argv[i]);
