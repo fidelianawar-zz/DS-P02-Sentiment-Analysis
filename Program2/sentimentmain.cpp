@@ -21,6 +21,7 @@ int sentimentMain::getSentiment(){
 }
 
 void sentimentMain::readTrainFile(DSString trainFile){
+
     ifstream trainData(trainFile.c_str());
     if (!trainData.is_open()) {
         cerr << "Unable to open train file" << endl;
@@ -52,6 +53,8 @@ void sentimentMain::readTrainFile(DSString trainFile){
 
         }
     }
+    //cout << tweetTrain.at(1);
+
     storeWords();
 }
 
@@ -86,37 +89,37 @@ void sentimentMain::readTrainTargetFile(DSString target){
 
 void sentimentMain::storeWords(){
 
-    int nonLetterCounter = 0;
+    int letterCounter = 0;
     int startCounter = 0;
 
-    for(int i = 0; i < tweetTrain.getSize(); i++){
+    //change to j < tweetTrain.getSize() later
+    for(int i = 0; i < 1; i++){
 
         DSString tempTweet = tweetTrain.at(i);
+
         for(int j = 0; j < tempTweet.size(); j++){
-
             DSString word;
-            while((tempTweet[j] > 64 && tempTweet[j] < 91) || (tempTweet[j] > 96 && tempTweet[j] < 123)){
-                nonLetterCounter++;
+            if((tempTweet[j] > 64 && tempTweet[j] < 91) || (tempTweet[j] > 96 && tempTweet[j] < 123)){
+                letterCounter++;
             }
-            word = tempTweet.substring(startCounter, nonLetterCounter);
-            nonLetterCounter++;
-            startCounter = nonLetterCounter;
-
-            wordsVector.push_back(word);
+            else if(tempTweet[j] == ' ' || (!(tempTweet[j] > 64 && tempTweet[j] < 91) || (tempTweet[j] > 96 && tempTweet[j] < 123))){
+                word = tempTweet.substring(startCounter, letterCounter);
+                letterCounter++;
+                startCounter = letterCounter;
+                wordsVector.push_back(word);
+            }
         }
+        wordsVector.printVector();
+        sentimentOrganizer();
     }
-    wordsVector.printVector();
 }
 
-void sentimentMain::classifier(){
-
-    DSVector<DSString> positiveWords;
-    DSVector<DSString> negativeWords;
+void sentimentMain::sentimentOrganizer(){
 
     for(int i = 0; i < rowNumbersTrain.getSize(); i++){
         if(rowNumbersTrain.at(i) == rowNumbersTrainTarget.at(i)){
-            for(int j = 0; j <rowNumbersTrainTarget.getSize(); j++){
-                if(sentimentTrainTarget.at(j) == 0){
+            for(int j = 0; j < rowNumbersTrainTarget.getSize(); j++){
+                if(sentimentTrainTarget.at(j) == "4"){
                     positiveWords.push_back(wordsVector.at(i));
                 }
                 else{
@@ -141,20 +144,20 @@ void sentimentMain::readTestFile(DSString test){
         for(int j = 0; j < 4; j++){
             if(j == 0){
                 targetData.getline(buffer,500, ',');
-                rowNumbersTrain.push_back(buffer);
+                rowNumbersTest.push_back(buffer);
             }
             else if(j == 1){
                 targetData.getline(buffer,500, ',');
-                IDTrain.push_back(buffer);
+                IDTest.push_back(buffer);
 
             }
             else if(j == 2){
                 targetData.getline(buffer,500, ',');
-                userNameTrain.push_back(buffer);
+                userNameTest.push_back(buffer);
             }
             else if(j == 3){
                 targetData.getline(buffer,500);
-                tweetTrain.push_back(buffer);
+                tweetTest.push_back(buffer);
             }
 
         }
@@ -162,7 +165,40 @@ void sentimentMain::readTestFile(DSString test){
     storeWords();
 }
 
+void sentimentMain::readTestTargetFile(DSString target){
+    ifstream testTarget(target.c_str());
+    if (!testTarget.is_open()) {
+        cerr << "Unable to open test file" << endl;
+        exit(1);   // call system to stop
+    }
+
+    testTarget.ignore(256, '\n');
+
+    //reading until end of file
+    for(int i = 0; i < 11; i++){
+        for(int j = 0; j < 4; j++){
+            if(j == 0){
+                testTarget.getline(buffer,500, ',');
+                rowNumbersTestTarget.push_back(buffer);
+            }
+            else if(j == 1){
+                testTarget.getline(buffer,500, ',');
+                sentimentTestTarget.push_back(buffer);
+
+            }
+            else if(j == 2){
+                testTarget.getline(buffer,500, ',');
+                IDTestTarget.push_back(buffer);
+            }
+        }
+    }
+}
 
 
+void sentimentMain::sentimentAnalyzer(){
+    for(int i = 0; i < rowNumbersTest.getSize(); i++){
+
+    }
+}
 
 

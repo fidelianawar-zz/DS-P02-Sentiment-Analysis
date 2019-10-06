@@ -31,6 +31,8 @@ public:
 
 
     DSVector<DSString> wordsVector;
+    DSVector<DSString> positiveWords;
+    DSVector<DSString> negativeWords;
 
 
     int sentiment;
@@ -46,9 +48,11 @@ public:
 
     void setSentiment(int classifier);
     int getSentiment();
+    void repeatedWord(DSString repeat);
 
     void storeWords();
-    void classifier();
+    void sentimentOrganizer();
+    void sentimentAnalyzer();
 
     /*int *tweetIDTrain;
     int *tweetIDTarget*/;

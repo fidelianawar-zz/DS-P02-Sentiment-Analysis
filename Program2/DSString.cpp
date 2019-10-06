@@ -15,12 +15,14 @@ DSString::DSString(){
 DSString::DSString(const char* x){
     data = new char[strlen(x)+1];
     strcpy(data, x);
+    ssize = strlen(x)+1;
 
 }
 
 DSString::DSString(const DSString& r){
     data = new char[strlen(r.data)+1];
     strcpy(data, r.data);
+     ssize = r.ssize;
 }
 
 DSString::~DSString(){
@@ -32,13 +34,16 @@ DSString& DSString::operator=(const char* r){
     delete [] data;
     data = new char[strlen(r)+1];
     strcpy(data,r);
+    ssize = strlen(r)+1;
     return *this;
 }
 
 // DSString& operator= (const DSString&);
 DSString& DSString::operator= (const DSString &q){
+    delete [] data;
     data = new char[strlen(q.data)+1];
     strcpy(data,q.data);
+    ssize = q.ssize;
     return *this;
 }
 

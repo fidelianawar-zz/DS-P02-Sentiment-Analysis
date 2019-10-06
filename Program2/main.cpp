@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
                 testData.open(argv[i]);
                 //newGame.readTestFile(argv[i]);
             }
-            //trying to see if fifth argument is vlow, creating output file
+
             else if(i == 4){
                 testTargetFile.open(argv[i]);
                 //newGame.readTestTargetFile(argv[i]);
