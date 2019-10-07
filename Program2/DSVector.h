@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstring>
 #include <DSString.h>
+#include <vector>
 
 using namespace std;
 
@@ -23,16 +24,16 @@ public:
     int getSize();
     int getCapacity() const;
 
-    DSVector<T>& operator=(DSVector x);
-    bool empty();//return true if empty
-
+    DSVector<T>& operator=(DSVector<T> x);
+    void deleteElements();//return true if empty
+    bool empty();
     void push_back(T const&);
     void deleteRepeated();
     void pop_back();
 
-    bool binarySearch(T variableElement);
+    int binarySearch(T variableElement);
     void quickSort(int b, int c);
-    void clear();
+
 
     T insert(T obj);
     T* printVector();
@@ -56,17 +57,44 @@ int DSVector<T>::getSize(){
     return vectorSize;
 }
 
-template<class T>
+template<typename T>
 int DSVector<T>::getCapacity() const {
     return capacity;
 }
 
+template<typename T>
+void DSVector<T>::deleteElements(){
+    delete [] elements;
+    T* temp = new T[0];
+    elements = temp;
+}
+
 // Assignment operator
-template <typename T>
-DSVector<T>& DSVector<T>::operator=(DSVector<T> other){
-    swap(*this,other);
+//template <typename T>
+//DSVector<T>& DSVector<T>::operator=(DSVector<T> other){
+//    swap(*this,other);
+//    return *this;
+//}
+
+template<typename T>
+DSVector<T>& DSVector<T>::operator=(const DSVector<T> b)
+{
+    // Test for self-copy
+    if(this != &b)
+    {
+        // If not a self-copy, implement the following
+        vectorSize = b.vectorSize;
+        capacity = b.capacity;
+        delete [] elements;
+        elements = new T[vectorSize];
+        for(int i = 0; i < b.vectorSize;i++)
+        {
+            elements[i] = b.elements[i];
+        }
+    }
     return *this;
 }
+
 
 template <typename T>
 bool DSVector<T>::empty(){
@@ -106,6 +134,12 @@ void DSVector<T>::deleteRepeated() {
     int counter = 0;
     int counter_size = 0;
     for(int i = 0; i < vectorSize; i++){
+        if(i == vectorSize-1){
+            temp[counter] = elements[i];
+            counter_size++;
+            break;
+            return;
+        }
         if(!(elements[i] == elements[i+1])){
             temp[counter] = elements[i];
             counter++;
@@ -148,7 +182,7 @@ void DSVector<T>::quickSort(int left, int right) {
 }
 
 template <typename T>
-bool DSVector<T>::binarySearch(T var){
+int DSVector<T>::binarySearch(T var){
     int low = 0;
     int high = vectorSize;
 
@@ -157,15 +191,14 @@ bool DSVector<T>::binarySearch(T var){
         int middleIndex = (high - low)/2;
 
         if(elements[middleIndex] == var){
-            return elements[middleIndex];
             return true;
         }
 
-        elseif(elements[middleIndex] > var);{
+        else if(elements[middleIndex] > var){
             high = middleIndex - 1;
         }
 
-        elseif(elements[middleIndex] < var);{
+        else if(elements[middleIndex] < var){
             low = middleIndex + 1;
         }
     }

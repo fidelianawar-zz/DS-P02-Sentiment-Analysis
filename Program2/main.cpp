@@ -37,12 +37,12 @@ int main(int argc, char *argv[])
 
             else if(i == 3){
                 testData.open(argv[i]);
-                //newGame.readTestFile(argv[i]);
+                newGame.readTestFile(argv[i]);
             }
 
             else if(i == 4){
                 testTargetFile.open(argv[i]);
-                //newGame.readTestTargetFile(argv[i]);
+                newGame.readTestTargetFile(argv[i]);
             }
         }
 

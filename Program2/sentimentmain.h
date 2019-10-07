@@ -34,6 +34,10 @@ public:
     DSVector<DSString> positiveWords;
     DSVector<DSString> negativeWords;
 
+    DSVector<DSString> wordsVectorTest;
+    DSVector<DSString> positiveTweet;
+    DSVector<DSString> negativeTweet;
+    DSVector<DSVector<DSString>> newVector;
 
     int sentiment;
     char buffer[1000];
@@ -51,7 +55,10 @@ public:
     void repeatedWord(DSString repeat);
 
     void classifyWords();
-    void sentimentAnalyzer();
+    void testAnalyzer();
+   // void erase();
+
+    void createAccuracyFile(char *arg);
 
     /*int *tweetIDTrain;
     int *tweetIDTarget*/;

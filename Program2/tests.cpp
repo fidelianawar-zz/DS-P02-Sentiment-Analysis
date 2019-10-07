@@ -85,6 +85,7 @@ TEST_CASE("DSVector quick sort again", "[DSVector]"){
     b.quickSort(0,b.getSize()-1);
     REQUIRE(b.at(0) == "123");
 }
+
 TEST_CASE("DSVector delete", "[DSString]"){
     DSVector<DSString> b;
     b.push_back("123");
@@ -94,3 +95,56 @@ TEST_CASE("DSVector delete", "[DSString]"){
     b.deleteRepeated();
     REQUIRE(b.getSize() == 3);
 }
+TEST_CASE("DSVector quick sort tweet", "[DSVector]"){
+    DSVector<DSString> b;
+    b.push_back("I");
+    b.push_back("love");
+    b.push_back("the");
+    b.push_back("sound");
+    b.push_back("of");
+    b.push_back("jets");
+    b.push_back("flying");
+    b.push_back("overhead");
+    b.push_back("It's");
+    b.push_back("thrilling");
+    b.push_back("and");
+    b.push_back("exciting");
+    b.quickSort(0,b.getSize()-1);
+    REQUIRE(b.at(0) == "I");
+    REQUIRE(b.at(1) == "It's");
+    REQUIRE(b.at(2) == "and");
+    REQUIRE(b.at(3) == "exciting");
+    REQUIRE(b.at(4) == "flying");
+}
+
+TEST_CASE("DSVector binary search", "[DSVector]"){
+    DSVector<DSString> binarysearchVector;
+    binarysearchVector.push_back("search");
+    binarysearchVector.push_back("me");
+    binarysearchVector.push_back("for");
+    binarysearchVector.push_back("words");
+    REQUIRE(binarysearchVector.binarySearch("search") == true);
+}
+
+TEST_CASE("DSVector binary search false", "[DSVector]"){
+    DSVector<DSString> binarysearchVector;
+    binarysearchVector.push_back("search");
+    binarysearchVector.push_back("me");
+    binarysearchVector.push_back("for");
+    binarysearchVector.push_back("words");
+    REQUIRE(binarysearchVector.binarySearch("not") == false);
+}
+
+TEST_CASE("DSVector binary search 2", "[DSVector]"){
+    DSVector<DSString> binarysearchVector;
+    binarysearchVector.push_back("search");
+    binarysearchVector.push_back("me");
+    binarysearchVector.push_back("for");
+    binarysearchVector.push_back("words");
+    REQUIRE(binarysearchVector.binarySearch("words") == true);
+}
+
+
+
+
+

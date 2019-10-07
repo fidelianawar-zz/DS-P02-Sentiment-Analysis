@@ -22,7 +22,7 @@ DSString::DSString(const char* x){
 DSString::DSString(const DSString& r){
     data = new char[strlen(r.data)+1];
     strcpy(data, r.data);
-     ssize = r.ssize;
+    ssize = r.ssize;
 }
 
 DSString::~DSString(){
@@ -130,27 +130,27 @@ bool DSString::operator< (const DSString& r){
         return false;
     }
 
-//    int minLength;
-//    if(strlen(data) < strlen(r.data)){
-//        minLength = strlen(data);
-//    }
-//    else{
-//        minLength = strlen(r.data);
-//    }
-//    for(int i = 0; i < minLength; i++){
-//        if(data[i] < r.data[i]){
-//            return true;
-//        }
-//        else if(data[i] > r.data[i]){
-//            return false;
-//        }
-//    }
-//    if(strlen(data) < strlen(r.data)){
-//        return true;
-//    }
-//    else{
-//        return false;
-//    }
+    //    int minLength;
+    //    if(strlen(data) < strlen(r.data)){
+    //        minLength = strlen(data);
+    //    }
+    //    else{
+    //        minLength = strlen(r.data);
+    //    }
+    //    for(int i = 0; i < minLength; i++){
+    //        if(data[i] < r.data[i]){
+    //            return true;
+    //        }
+    //        else if(data[i] > r.data[i]){
+    //            return false;
+    //        }
+    //    }
+    //    if(strlen(data) < strlen(r.data)){
+    //        return true;
+    //    }
+    //    else{
+    //        return false;
+    //    }
 }
 
 //bool operator< (const char*);
