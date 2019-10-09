@@ -261,7 +261,7 @@ void sentimentMain::testAnalyzer(){
             }
         }
         wordsVectorTest.quickSort(0,(wordsVectorTest.getSize() - 1));
-        cout << wordsVectorTest.getSize() << " ";
+        //cout << wordsVectorTest.getSize() << " ";
         wordsVectorTest.deleteRepeated();
 
         // wordsVectorTest.printVector();
@@ -299,25 +299,32 @@ void sentimentMain::testAnalyzer(){
 }
 
 
-//void sentimentMain::createAccuracyFile(char *input){
-//    ofstream outputFile;
-//    outputFile.open(input);
-//    float accuracyOutput = 0.0;
-//    int accuracyCounter = 0;
+void sentimentMain::createAccuracyFile(char *input){
 
-//    outputFile << accuracyOutput << endl;
-//    for(int i = 0; i < rowNumbersTestTarget.getSize(); i++){
-//        if(sentimentTestTarget.at(i) == sentimentValue[i]){
-//            accuracyCounter++;
-//            outputFile << IDTest.at(i) << "," << " c" << endl;
-//        }
-//        else{
-//            outputFile << IDTest.at(i) << "," << " i" << endl;
-//        }
-//    }
+    ofstream outputFile;
+    outputFile.open(input);
 
-//    cout << sentimentValue[i];
-//}
+    float accuracyOutput = 0.0;
+    float accuracyCounter = 0.0;
+
+    DSVector<DSString> score;
+
+    for(int i = 0; i < rowNumbersTestTarget.getSize(); i++){
+        if(sentimentTestTarget.at(i) == sentimentValue[i]){
+            accuracyCounter++;
+            score.push_back("c");
+        }
+        else{
+            score.push_back("i");
+        }
+    }
+    accuracyOutput = (accuracyCounter/(float)rowNumbersTestTarget.getSize());
+    outputFile << accuracyOutput << endl;
+
+    for(int i = 0; i < rowNumbersTestTarget.getSize(); i++){
+        outputFile << IDTestTarget.at(i) << "," << score.at(i) << endl;
+    }
+}
 
 
 

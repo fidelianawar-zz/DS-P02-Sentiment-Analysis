@@ -9,7 +9,6 @@
 #include <fstream>
 
 
-
 int runCatchTests(int argc, char* argv[1]){
     return Catch::Session().run(argc,argv);
 }
@@ -25,9 +24,7 @@ int main(int argc, char *argv[])
         return runCatchTests(argc, argv);
     }
     else{
-
         sentimentMain newGame;
-
         for(int i = 0; i < argc; i++){
             if(i == 1){
                 trainData.open(argv[i]);
@@ -45,8 +42,9 @@ int main(int argc, char *argv[])
                 testTargetFile.open(argv[i]);
                 newGame.readTestTargetFile(argv[i]);
             }
-
+            else if(i == 5){
+                newGame.createAccuracyFile(argv[i]);
+            }
         }
-
     }
 }
