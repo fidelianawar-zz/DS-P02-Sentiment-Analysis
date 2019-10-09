@@ -72,12 +72,6 @@ void DSVector<T>::deleteElements(){
     elements = temp;
 }
 
-// Assignment operator
-//template <typename T>
-//DSVector<T>& DSVector<T>::operator=(DSVector<T> other){
-//    swap(*this,other);
-//    return *this;
-//}
 
 template<typename T>
 DSVector<T>& DSVector<T>::operator=(const DSVector<T> b)
@@ -238,6 +232,7 @@ T* DSVector<T>::printVector(){
     cout << endl;
 }
 
+//remove last element
 template<typename T>
 void DSVector<T>::pop_back() {
     if (vectorSize > 0)

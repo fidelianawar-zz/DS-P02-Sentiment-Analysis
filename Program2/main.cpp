@@ -32,12 +32,10 @@ int main(int argc, char *argv[])
                 newGame.readTrainTargetFile(argv[2]);
                 newGame.readTrainFile(argv[i]);
             }
-
             else if(i == 3){
                 testData.open(argv[i]);
                 newGame.readTestFile(argv[i]);
             }
-
             else if(i == 4){
                 testTargetFile.open(argv[i]);
                 newGame.readTestTargetFile(argv[i]);

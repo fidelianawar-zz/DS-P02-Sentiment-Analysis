@@ -14,25 +14,18 @@ TEST_CASE("DSString +", "[DSString]"){
     DSString name3 = name + name2;
     REQUIRE(name3 == "fidelia nawar");
 }
-TEST_CASE("DSString -", "[DSString]"){
-    DSString name = "fidelia";
-    DSString name2 = " nawar";
-    DSString name3 = name + name2;
-    DSString name4 = name3 - name2;
-    //REQUIRE(name3 == "fidelia");
-}
 
 TEST_CASE("DSString >", "[DSString]"){
-    DSString string1 = "this is greater";
-    DSString string2 = "this is not greater";
-    bool result = string1 > string2;
-    //REQUIRE(result == true);
+    DSString string1 = "bac";
+    DSString string2 = "abc";
+    bool result = string1 < string2;
+    REQUIRE(result == false);
 }
 TEST_CASE("DSString <", "[DSString]"){
     DSString string1 = "this is not greater";
     DSString string2 = "abc - this is greater";
     bool result = string1 < string2;
-    //REQUIRE(result == true);
+    REQUIRE(result == false);
 }
 TEST_CASE("DSString []", "[DSString]"){
     DSString string1 = "array of elements";
@@ -45,10 +38,6 @@ TEST_CASE("DSString space[]", "[DSString]"){
 TEST_CASE("DSString last element[]", "[DSString]"){
     DSString string1 = "array of elements";
     REQUIRE(string1[strlen(string1.c_str())-1] == 's');
-}
-TEST_CASE("DSVector", "[DSString]"){
-    //DSVector<int> vector1 = {0, 1, 2};
-
 }
 TEST_CASE("DSString substring beginning", "[DSString]"){
     DSString string1 = "array of elements";
@@ -86,7 +75,7 @@ TEST_CASE("DSVector quick sort again", "[DSVector]"){
     REQUIRE(b.at(0) == "123");
 }
 
-TEST_CASE("DSVector delete", "[DSString]"){
+TEST_CASE("DSVector delete repeated", "[DSString]"){
     DSVector<DSString> b;
     b.push_back("123");
     b.push_back("123");
@@ -95,7 +84,7 @@ TEST_CASE("DSVector delete", "[DSString]"){
     b.deleteRepeated();
     REQUIRE(b.getSize() == 3);
 }
-TEST_CASE("DSVector quick sort tweet", "[DSVector]"){
+TEST_CASE("DSVector quick sort actual tweet", "[DSVector]"){
     DSVector<DSString> b;
     b.push_back("I");
     b.push_back("love");
@@ -118,7 +107,7 @@ TEST_CASE("DSVector quick sort tweet", "[DSVector]"){
     REQUIRE(b.binarySearch("jets") == true);
 }
 
-TEST_CASE("DSVector binary search", "[DSVector]"){
+TEST_CASE("DSVector binary search result true", "[DSVector]"){
     DSVector<DSString> binarysearchVector;
     binarysearchVector.push_back("search");
     binarysearchVector.push_back("me");
@@ -128,7 +117,7 @@ TEST_CASE("DSVector binary search", "[DSVector]"){
     REQUIRE(binarysearchVector.binarySearch("search") == true);
 }
 
-TEST_CASE("DSVector binary search false", "[DSVector]"){
+TEST_CASE("DSVector binary search result false", "[DSVector]"){
     DSVector<DSString> binarysearchVector;
     binarysearchVector.push_back("search");
     binarysearchVector.push_back("me");
@@ -138,7 +127,7 @@ TEST_CASE("DSVector binary search false", "[DSVector]"){
     REQUIRE(binarysearchVector.binarySearch("not") == false);
 }
 
-TEST_CASE("DSVector binary search 2", "[DSVector]"){
+TEST_CASE("DSVector binary searching a vector, using .at()", "[DSVector]"){
 
     DSVector<DSString> binarysearchVector;
     DSVector<DSString> otherVector;
@@ -160,9 +149,8 @@ TEST_CASE("DSVector binary search 2", "[DSVector]"){
         REQUIRE(binarysearchVector.binarySearch(otherVector.at(0)) == false);
         REQUIRE(binarysearchVector.binarySearch(otherVector.at(2)) == false);
     }
-
 }
-TEST_CASE("DSVector deleterepeated2", "[DSVector]"){
+TEST_CASE("DSVector delete repeated words/getSize correctly", "[DSVector]"){
     DSVector<DSString> vector;
     vector.push_back("search");
     vector.push_back("me");
@@ -171,6 +159,30 @@ TEST_CASE("DSVector deleterepeated2", "[DSVector]"){
     vector.push_back("me");
     vector.quickSort(0,vector.getSize()-1);
     vector.deleteRepeated();
-    vector.printVector();
+     REQUIRE(vector.getSize() == 4);
 }
 
+TEST_CASE("DSVector getSize()", "[DSVector]"){
+    DSVector<DSString> vector;
+    vector.push_back("search");
+    vector.push_back("me");
+    vector.push_back("for");
+    vector.push_back("words");
+    vector.push_back("me");
+    REQUIRE(vector.getSize() == 5);
+}
+
+TEST_CASE("DSVector empty()", "[DSVector]"){
+    DSVector<DSString> vector;
+    REQUIRE(vector.getSize() == 0);
+}
+
+TEST_CASE("DSVector pop_back()", "[DSVector]"){
+    DSVector<DSString> vector;
+    vector.push_back("search");
+    vector.push_back("me");
+    vector.push_back("for");
+    vector.pop_back();
+    REQUIRE(vector.getSize() == 2);
+    REQUIRE(vector.at(1) == "me");
+}
