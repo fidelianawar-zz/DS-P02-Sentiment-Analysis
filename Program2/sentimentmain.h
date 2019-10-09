@@ -40,8 +40,8 @@ public:
     DSVector<DSVector<DSString>> newVector;
 
     int sentiment;
-    char buffer[1000];
-    DSString sentimentValue[100];
+    char buffer[500];
+    DSString* sentimentValue;
 
 
     sentimentMain();
@@ -63,7 +63,7 @@ public:
     void createAccuracyFile(char *arg);
 
     /*int *tweetIDTrain;
-    int *tweetIDTarget*/;
+    int *tweetIDTarget*/
 };
 
 #endif // SENTIMENTMAIN_H

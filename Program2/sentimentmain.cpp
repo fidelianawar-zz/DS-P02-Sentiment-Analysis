@@ -12,6 +12,7 @@ sentimentMain::sentimentMain()
 {
 }
 sentimentMain::~sentimentMain(){
+    delete [] sentimentValue;
 }
 void sentimentMain::setSentiment(int _sentiment){
     sentiment = _sentiment;
@@ -31,7 +32,7 @@ void sentimentMain::readTrainFile(DSString trainFile){
     trainData.ignore(256, '\n');
 
     //reading until end of file
-    for(int i = 0; i < 11; i++){
+    for(int i = 0; i < 1001; i++){
         for(int j = 0; j < 4; j++){
             if(j == 0){
                 trainData.getline(buffer,500, ',');
@@ -70,7 +71,7 @@ void sentimentMain::readTrainTargetFile(DSString target){
     targetData.ignore(256, '\n');
 
     //reading until end of file
-    for(int i = 0; i < 11; i++){
+    for(int i = 0; i < 1001; i++){
         for(int j = 0; j < 3; j++){
             if(j == 0){
                 targetData.getline(buffer,500, ',');
@@ -162,7 +163,7 @@ void sentimentMain::readTestFile(DSString test){
     targetData.ignore(256, '\n');
 
     //reading until end of file
-    for(int i = 0; i < 11; i++){
+    for(int i = 0; i < 1001; i++){
         for(int j = 0; j < 4; j++){
             if(j == 0){
                 targetData.getline(buffer,500, ',');
@@ -196,8 +197,8 @@ void sentimentMain::readTestTargetFile(DSString target){
     testTarget.ignore(256, '\n');
 
     //reading until end of file
-    for(int i = 0; i < 11; i++){
-        for(int j = 0; j < 4; j++){
+    for(int i = 0; i < 1001; i++){
+        for(int j = 0; j < 3; j++){
             if(j == 0){
                 testTarget.getline(buffer,500, ',');
                 rowNumbersTestTarget.push_back(buffer);
@@ -215,13 +216,13 @@ void sentimentMain::readTestTargetFile(DSString target){
     }
 }
 
-
 void sentimentMain::testAnalyzer(){
 
     int letterCounter = 0;
     int startCounter = 0;
     int positiveWordFrequency = 0;
     int negativeWordFrequency = 0;
+    sentimentValue  = new DSString[rowNumbersTest.getSize()];
 
     for(int i = 0; i < rowNumbersTest.getSize(); i++){
         DSString tempTweet = tweetTest.at(i);
@@ -243,6 +244,7 @@ void sentimentMain::testAnalyzer(){
             }
         }
         wordsVectorTest.quickSort(0,(wordsVectorTest.getSize() - 1));
+        cout << wordsVectorTest.getSize() << " ";
         wordsVectorTest.deleteRepeated();
 
         // wordsVectorTest.printVector();
@@ -262,10 +264,12 @@ void sentimentMain::testAnalyzer(){
             positiveTweet.push_back(tweetTest.at(i));
             sentimentValue[i] = "4";
         }
+
         else if(negativeWordFrequency > positiveWordFrequency){
             negativeTweet.push_back(tweetTest.at(i));
             sentimentValue[i] = "0";
         }
+
         positiveWordFrequency = 0;
         negativeWordFrequency = 0;
 
@@ -274,8 +278,7 @@ void sentimentMain::testAnalyzer(){
         letterCounter = 0;
         startCounter = 0;
     }
-    negativeTweet.printVector();
-    cout << endl;
+
 }
 
 
@@ -284,7 +287,7 @@ void sentimentMain::testAnalyzer(){
 //    outputFile.open(input);
 //    float accuracyOutput = 0.0;
 //    int accuracyCounter = 0;
-//    accuracyOutput = accuracyCounter / rowNumbersTestTarget.getSize();
+
 //    outputFile << accuracyOutput << endl;
 //    for(int i = 0; i < rowNumbersTestTarget.getSize(); i++){
 //        if(sentimentTestTarget.at(i) == sentimentValue[i]){
@@ -295,6 +298,8 @@ void sentimentMain::testAnalyzer(){
 //            outputFile << IDTest.at(i) << "," << " i" << endl;
 //        }
 //    }
+
+//    cout << sentimentValue[i];
 //}
 
 
@@ -385,8 +390,3 @@ void sentimentMain::testAnalyzer(){
 //    negativeTweet.printVector();
 
 //}
-
-
-
-
-

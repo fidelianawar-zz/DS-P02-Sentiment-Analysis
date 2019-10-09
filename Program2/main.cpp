@@ -8,10 +8,7 @@
 #include <iostream>
 #include <fstream>
 
-ifstream trainData;
-ifstream trainTargetFile;
-ifstream testData;
-ifstream testTargetFile;
+
 
 int runCatchTests(int argc, char* argv[1]){
     return Catch::Session().run(argc,argv);
@@ -19,6 +16,10 @@ int runCatchTests(int argc, char* argv[1]){
 
 int main(int argc, char *argv[])
 {
+    ifstream trainData;
+    ifstream trainTargetFile;
+    ifstream testData;
+    ifstream testTargetFile;
 
     if(argc == 1){
         return runCatchTests(argc, argv);

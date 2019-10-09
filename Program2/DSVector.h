@@ -14,7 +14,7 @@ private:
     T* elements;
     int vectorSize;
     int capacity;
-    int* arrayCounter;
+    //int* arrayCounter;
 
 public:
     DSVector();
@@ -44,7 +44,7 @@ public:
 
 template<typename T>
 DSVector<T>::DSVector() {
-    capacity = 0;
+    capacity = 10;
     elements = new T[capacity];
     vectorSize = 0;
 }
@@ -108,8 +108,9 @@ template <typename T>
 // append copy of passed element
 void DSVector<T>::push_back(T const& elem) {
     if(vectorSize >= capacity){
+
         //double capacity
-        capacity += 10;
+        capacity *= 2;
         T* temp = new T[capacity];
         for(int i = 0; i < vectorSize; i++){
             temp[i] = elements[i];
@@ -138,13 +139,18 @@ void DSVector<T>::deleteRepeated() {
     int counter = 0;
     int counter_size = 0;
 
-    arrayCounter = new int[vectorSize];
+    //arrayCounter = new int[vectorSize];
 
     for(int i = 0; i < vectorSize; i++){
+        if(vectorSize == 1)
+        {
+            return;
+            break;
+        }
         if(i == vectorSize-1){
             if((elements[i] == elements[i-1]))
             {
-                arrayCounter[counter]++;
+                //arrayCounter[counter]++;
                 break;
                 return;
             }
@@ -157,12 +163,12 @@ void DSVector<T>::deleteRepeated() {
         }
         if(!(elements[i] == elements[i+1])){
             temp[counter] = elements[i];
-            arrayCounter[counter]++;
+            //arrayCounter[counter]++;
             counter++;
             counter_size++;
         }
         else if((elements[i] == elements[i+1])){
-            arrayCounter[counter]++;
+            //arrayCounter[counter]++;
         }
     }
     delete [] elements;

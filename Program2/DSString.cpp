@@ -12,6 +12,24 @@ DSString::DSString(){
     ssize=0;
 }
 
+//DSString::DSString(const char* x){
+//   ssize = strlen(x);
+//   ssize = int(ssize+1);
+//   data = new char[ssize];
+//   for(int i = 0; i < ssize; i++){
+//       data[i] = x[i];
+//   }
+
+//}
+
+//DSString::DSString(const DSString& r){
+//    this->ssize = r.ssize;
+//    data = new char[r.ssize+1];
+//    for(int i = 0; i < ssize; i++){
+//        data[i] = r.data[i];
+//    }
+//}
+
 DSString::DSString(const char* x){
     data = new char[strlen(x)+1];
     strcpy(data, x);
@@ -26,7 +44,7 @@ DSString::DSString(const DSString& r){
 }
 
 DSString::~DSString(){
-    delete [] data;
+   delete [] data;
 }
 
 // DSString& operator= (const char*);
@@ -40,8 +58,8 @@ DSString& DSString::operator=(const char* r){
 
 // DSString& operator= (const DSString&);
 DSString& DSString::operator= (const DSString &q){
-//    delete [] data;
-    data = new char[strlen(q.data)+1];
+    delete [] data;
+    data = new char[(strlen(q.data))+1];
     strcpy(data,q.data);
     ssize = q.ssize;
     return *this;
@@ -96,16 +114,27 @@ bool DSString::operator== (const char* s){
 }
 
 bool DSString::operator== (const DSString &object) const{
-    if(strlen(data) != strlen(object.data)){
-        return false;
-    }
-    for(int i = 0; i < strlen(data); i++){
-        if(data[i] != object.data[i]){
-            return false;
-        }
+    if (strcmp(data, object.data) == 0)
+    {
         return true;
     }
+    else
+    {
+        return false;
+    }
+
 }
+
+    //    if(strlen(data) != strlen(object.data)){
+//        return false;
+//    }
+//    for(int i = 0; i < strlen(data); i++){
+//        if(data[i] != object.data[i]){
+//            return false;
+//        }
+//        return true;
+//    }
+//}
 
 //bool operator< (const char*);
 bool DSString::operator< (const char *p){
@@ -226,7 +255,6 @@ void DSString::toLowerCase(DSString capitals){
         }
     }
 }
-
 
 #endif
 
