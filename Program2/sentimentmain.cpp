@@ -105,7 +105,7 @@ void sentimentMain::classifyWords(){
                     if((tempTweet[j] > 64 && tempTweet[j] < 91) || (tempTweet[j] > 96 && tempTweet[j] < 123)){
                         letterCounter++;
                     }
-                    else if((!(tempTweet[j] > 64 && tempTweet[j] < 91) || (tempTweet[j] > 96 && tempTweet[j] < 123))){
+                    else if(!((tempTweet[j] > 64 && tempTweet[j] < 91) || (tempTweet[j] > 96 && tempTweet[j] < 123))){
                         word = tempTweet.substring(startCounter, letterCounter);
                         word.toLowerCase(word);
                         letterCounter++;
@@ -124,7 +124,7 @@ void sentimentMain::classifyWords(){
                     if((tempTweet[j] > 64 && tempTweet[j] < 91) || (tempTweet[j] > 96 && tempTweet[j] < 123)){
                         letterCounter++;
                     }
-                    else if((!(tempTweet[j] > 64 && tempTweet[j] < 91) || (tempTweet[j] > 96 && tempTweet[j] < 123))){
+                    else if(!((tempTweet[j] > 64 && tempTweet[j] < 91) || (tempTweet[j] > 96 && tempTweet[j] < 123))){
                         word = tempTweet.substring(startCounter, letterCounter);
                         word.toLowerCase(word);
                         letterCounter++;
@@ -136,19 +136,19 @@ void sentimentMain::classifyWords(){
                 startCounter = 0;
             }
         }
+
     }
-
-
-
     positiveWords.quickSort(0,positiveWords.getSize()-1);
     positiveWords.deleteRepeated();
-
     //positiveWords.printVector();
+
 
 
     negativeWords.quickSort(0,negativeWords.getSize()-1);
     negativeWords.deleteRepeated();
+
     //negativeWords.printVector();
+
 
 }
 
@@ -224,6 +224,8 @@ void sentimentMain::testAnalyzer(){
     int positiveWordFrequency = 0;
     int negativeWordFrequency = 0;
 
+    DSString sentimentValue[100];
+
     for(int i = 0; i < rowNumbersTest.getSize(); i++){
         DSString tempTweet = tweetTest.at(i);
         for(int j = 0; j < tempTweet.size(); j++){
@@ -237,35 +239,62 @@ void sentimentMain::testAnalyzer(){
                 letterCounter++;
                 startCounter = letterCounter;
                 wordsVectorTest.push_back(word);
-                //newVector.push_back(wordsVectorTest);
-                //wordsVectorTest.deleteElements();
-            }
-            for(int k = 0; k < wordsVectorTest.getSize(); k++){
-                //if(positiveWords.binarySearch(wordsVectorTest.at(k)) == true){
-                    positiveWordFrequency++;
-                //}
-            }
-            for(int h = 0; h < wordsVectorTest.getSize(); h++){
-               // if(negativeWords.binarySearch(wordsVectorTest.at(h)) == true){
-                    negativeWordFrequency++;
-               // }
             }
         }
-        cout << positiveWordFrequency << endl;
+
+        wordsVectorTest.quickSort(0,(wordsVectorTest.getSize() - 1));
+        wordsVectorTest.deleteRepeated();
+        //wordsVectorTest.printVector();
+        positiveWordFrequency = 0;
+        negativeWordFrequency = 0;
+
+
+//        for(int k = 0; k < wordsVectorTest.getSize(); k++){
+//            DSString savedWord = wordsVectorTest.at(k);
+//            if(positiveWords.binarySearch(savedWord) == true){
+//                cout << "true";
+//            }
+//        }
+
+        wordsVectorTest.deleteElements();
         letterCounter = 0;
         startCounter = 0;
 
+        //        for(int k = 0; k < wordsVectorTest.getSize(); k++){
+        //            if(positiveWords.binarySearch(wordsVectorTest.at(k)) == true){
+        //                positiveWordFrequency++;
+        //            }
     }
-     //wordsVectorTest.printVector();
 }
+    //        for(int h = 0; h < wordsVectorTest.getSize(); h++){
+    //            if(negativeWords.binarySearch(wordsVectorTest.at(h)) == true){
+    //                negativeWordFrequency++;
+    //            }
+    //        }
+
+    //        if(positiveWordFrequency == negativeWordFrequency){
+    //            sentimentValue[i] = "4";
+    //        }
+    //        else if(positiveWordFrequency > negativeWordFrequency){
+    //            positiveTweet.push_back(tweetTest.at(i));
+    //            sentimentValue[i] = "4";
+    //        }
+    //        else if(positiveWordFrequency > negativeWordFrequency){
+    //            negativeTweet.push_back(tweetTest.at(i));
+    //            sentimentValue[i] = "0";
+    //        }
 
 
-//        letterCounter = 0;
-//        startCounter = 0;
-//        cout << "made it here" << endl;
-//        newVector.push_back(wordsVectorTest);
 
-//wordsVectorTest.deleteElements();
+
+
+
+//    for(int i = 0; i < sentimentValue->size(); i++){
+//        cout << sentimentValue[i] << endl;
+//    }
+
+
+
 
 
 //    for(int i = 0; i < newVector.getSize(); i++){

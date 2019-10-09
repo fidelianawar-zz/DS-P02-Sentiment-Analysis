@@ -14,6 +14,7 @@ private:
     T* elements;
     int vectorSize;
     int capacity;
+    int* arrayCounter;
 
 public:
     DSVector();
@@ -31,7 +32,7 @@ public:
     void deleteRepeated();
     void pop_back();
 
-    int binarySearch(T variableElement);
+    bool binarySearch(T variableElement);
     void quickSort(int b, int c);
 
 
@@ -65,7 +66,9 @@ int DSVector<T>::getCapacity() const {
 template<typename T>
 void DSVector<T>::deleteElements(){
     delete [] elements;
-    T* temp = new T[0];
+    capacity = 10;
+    T* temp = new T[capacity];
+    vectorSize = 0;
     elements = temp;
 }
 
@@ -105,6 +108,7 @@ template <typename T>
 // append copy of passed element
 void DSVector<T>::push_back(T const& elem) {
     if(vectorSize >= capacity){
+        //double capacity
         capacity += 10;
         T* temp = new T[capacity];
         for(int i = 0; i < vectorSize; i++){
@@ -133,6 +137,9 @@ void DSVector<T>::deleteRepeated() {
     T* temp = new T[capacity];
     int counter = 0;
     int counter_size = 0;
+
+    arrayCounter = new int[vectorSize];
+
     for(int i = 0; i < vectorSize; i++){
         if(i == vectorSize-1){
             temp[counter] = elements[i];
@@ -142,8 +149,12 @@ void DSVector<T>::deleteRepeated() {
         }
         if(!(elements[i] == elements[i+1])){
             temp[counter] = elements[i];
+            arrayCounter[counter]++;
             counter++;
             counter_size++;
+        }
+        else if((elements[i] == elements[i+1])){
+            arrayCounter[counter]++;
         }
     }
     delete [] elements;
@@ -182,13 +193,13 @@ void DSVector<T>::quickSort(int left, int right) {
 }
 
 template <typename T>
-int DSVector<T>::binarySearch(T var){
+bool DSVector<T>::binarySearch(T var){
     int low = 0;
-    int high = vectorSize;
+    int high = vectorSize-1;
 
     while(low <= high){
 
-        int middleIndex = (high - low)/2;
+        int middleIndex = (high + low)/2;
 
         if(elements[middleIndex] == var){
             return true;
@@ -208,7 +219,7 @@ int DSVector<T>::binarySearch(T var){
 template <typename T>
 T* DSVector<T>::printVector(){
     for(int i = 0; i < vectorSize; i++){
-        cout << elements[i] << " ";
+        cout << elements[i];
     }
     cout << endl;
 }

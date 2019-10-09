@@ -115,6 +115,7 @@ TEST_CASE("DSVector quick sort tweet", "[DSVector]"){
     REQUIRE(b.at(2) == "and");
     REQUIRE(b.at(3) == "exciting");
     REQUIRE(b.at(4) == "flying");
+    REQUIRE(b.binarySearch("jets") == true);
 }
 
 TEST_CASE("DSVector binary search", "[DSVector]"){
@@ -123,6 +124,7 @@ TEST_CASE("DSVector binary search", "[DSVector]"){
     binarysearchVector.push_back("me");
     binarysearchVector.push_back("for");
     binarysearchVector.push_back("words");
+    binarysearchVector.quickSort(0,binarysearchVector.getSize()-1);
     REQUIRE(binarysearchVector.binarySearch("search") == true);
 }
 
@@ -132,19 +134,32 @@ TEST_CASE("DSVector binary search false", "[DSVector]"){
     binarysearchVector.push_back("me");
     binarysearchVector.push_back("for");
     binarysearchVector.push_back("words");
+    binarysearchVector.quickSort(0,binarysearchVector.getSize()-1);
     REQUIRE(binarysearchVector.binarySearch("not") == false);
 }
 
-//TEST_CASE("DSVector binary search 2", "[DSVector]"){
-//    DSVector<DSString> binarysearchVector;
-//    binarysearchVector.push_back("search");
-//    binarysearchVector.push_back("me");
-//    binarysearchVector.push_back("for");
-//    binarysearchVector.push_back("words");
-//    REQUIRE(binarysearchVector.binarySearch("words") == true);
-//}
+TEST_CASE("DSVector binary search 2", "[DSVector]"){
 
+    DSVector<DSString> binarysearchVector;
+    DSVector<DSString> otherVector;
 
+    binarysearchVector.push_back("search");
+    binarysearchVector.push_back("me");
+    binarysearchVector.push_back("for");
+    binarysearchVector.push_back("words");
 
+    otherVector.push_back("pls");
+    otherVector.push_back("work");
+    otherVector.push_back("search");
 
+    binarysearchVector.quickSort(0, binarysearchVector.getSize()-1);
+    otherVector.quickSort(0, otherVector.getSize()-1);
+
+    for(int i = 0; i < otherVector.getSize(); i++){
+        REQUIRE(binarysearchVector.binarySearch(otherVector.at(1)) == true);
+        REQUIRE(binarysearchVector.binarySearch(otherVector.at(0)) == false);
+        REQUIRE(binarysearchVector.binarySearch(otherVector.at(2)) == false);
+    }
+
+}
 

@@ -40,7 +40,7 @@ DSString& DSString::operator=(const char* r){
 
 // DSString& operator= (const DSString&);
 DSString& DSString::operator= (const DSString &q){
-    delete [] data;
+//    delete [] data;
     data = new char[strlen(q.data)+1];
     strcpy(data,q.data);
     ssize = q.ssize;
@@ -222,7 +222,7 @@ std:: ostream& operator<< (std::ostream& OS, const DSString& s){
 void DSString::toLowerCase(DSString capitals){
     for(int i = 0; i < capitals.size(); i++){
         if(capitals[i] > 64 && capitals[i] < 91){
-            capitals[i] + 32;
+            capitals[i] = capitals[i] + 32;
         }
     }
 }
