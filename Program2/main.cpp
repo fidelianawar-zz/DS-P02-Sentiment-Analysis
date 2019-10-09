@@ -25,7 +25,10 @@ int main(int argc, char *argv[])
         return runCatchTests(argc, argv);
     }
     else{
+
+        //create new instance of classifer
         sentimentMain newGame;
+
         for(int i = 0; i < argc; i++){
             if(i == 1){
                 trainData.open(argv[i]);

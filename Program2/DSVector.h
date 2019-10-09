@@ -14,7 +14,6 @@ private:
     T* elements;
     int vectorSize;
     int capacity;
-    //int* arrayCounter;
 
 public:
     DSVector();
@@ -26,7 +25,7 @@ public:
     int getCapacity() const;
 
     DSVector<T>& operator=(DSVector<T> x);
-    void deleteElements();//return true if empty
+    void deleteElements();
     bool empty();
     void push_back(T const&);
     void deleteRepeated();
@@ -48,11 +47,14 @@ DSVector<T>::DSVector() {
     elements = new T[capacity];
     vectorSize = 0;
 }
+
+//destrcutor
 template <typename T>
 DSVector<T>::~DSVector(){
     delete[] elements;
 }
 
+//obtain size of vector
 template <typename T>
 int DSVector<T>::getSize(){
     return vectorSize;
@@ -63,6 +65,7 @@ int DSVector<T>::getCapacity() const {
     return capacity;
 }
 
+//delete contents of vector
 template<typename T>
 void DSVector<T>::deleteElements(){
     delete [] elements;
@@ -72,7 +75,7 @@ void DSVector<T>::deleteElements(){
     elements = temp;
 }
 
-
+//equals operator for vector
 template<typename T>
 DSVector<T>& DSVector<T>::operator=(const DSVector<T> b)
 {
@@ -98,8 +101,8 @@ bool DSVector<T>::empty(){
     return vectorSize==0;
 }
 
+//append copy of passed element to vector
 template <typename T>
-// append copy of passed element
 void DSVector<T>::push_back(T const& elem) {
     if(vectorSize >= capacity){
 
@@ -117,6 +120,7 @@ void DSVector<T>::push_back(T const& elem) {
     vectorSize++;
 }
 
+//access index of element in vector
 template <typename T>
 T DSVector<T>::at(int index){
     if(index < 0 || index >= vectorSize){
@@ -126,14 +130,12 @@ T DSVector<T>::at(int index){
     return elements[index];
 }
 
-template <typename T>
 // delete repeated elements
+template <typename T>
 void DSVector<T>::deleteRepeated() {
     T* temp = new T[capacity];
     int counter = 0;
     int counter_size = 0;
-
-    //arrayCounter = new int[vectorSize];
 
     for(int i = 0; i < vectorSize; i++){
         if(vectorSize == 1)
@@ -144,7 +146,6 @@ void DSVector<T>::deleteRepeated() {
         if(i == vectorSize-1){
             if((elements[i] == elements[i-1]))
             {
-                //arrayCounter[counter]++;
                 break;
                 return;
             }
@@ -157,12 +158,10 @@ void DSVector<T>::deleteRepeated() {
         }
         if(!(elements[i] == elements[i+1])){
             temp[counter] = elements[i];
-            //arrayCounter[counter]++;
             counter++;
             counter_size++;
         }
         else if((elements[i] == elements[i+1])){
-            //arrayCounter[counter]++;
         }
     }
     delete [] elements;
@@ -171,6 +170,7 @@ void DSVector<T>::deleteRepeated() {
 
 }
 
+//quicksort elements of vector
 template <typename T>
 void DSVector<T>::quickSort(int left, int right) {
       int i = left, j = right;
@@ -200,6 +200,7 @@ void DSVector<T>::quickSort(int left, int right) {
             quickSort(i, right);
 }
 
+//perform binary search on sorted vector
 template <typename T>
 bool DSVector<T>::binarySearch(T var){
     int low = 0;
@@ -224,6 +225,7 @@ bool DSVector<T>::binarySearch(T var){
     return false;
 }
 
+//print elements of vector
 template <typename T>
 T* DSVector<T>::printVector(){
     for(int i = 0; i < vectorSize; i++){

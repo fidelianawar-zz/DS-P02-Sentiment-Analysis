@@ -90,6 +90,7 @@ void sentimentMain::classifyWords(){
 
     for(int i = 0; i < rowNumbersTrain.getSize(); i++){
         if(rowNumbersTrain.at(i) == rowNumbersTrainTarget.at(i)){
+            //if sentiment is positive, add words to positiveWords vector
             if(sentimentTrainTarget.at(i) == "0"){
                 DSString tempTweet = tweetTrain.at(i);
                 for(int j = 0; j < tempTweet.size(); j++){
@@ -111,6 +112,8 @@ void sentimentMain::classifyWords(){
                 letterCounter = 0;
                 startCounter = 0;
             }
+
+            //if sentiment is negative, add words to negativeWords vector
             else if(sentimentTrainTarget.at(i) == "4"){
                 DSString tempTweet = tweetTrain.at(i);
                 for(int j = 0; j < tempTweet.size(); j++){
