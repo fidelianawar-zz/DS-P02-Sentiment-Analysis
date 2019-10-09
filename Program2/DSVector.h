@@ -142,10 +142,18 @@ void DSVector<T>::deleteRepeated() {
 
     for(int i = 0; i < vectorSize; i++){
         if(i == vectorSize-1){
-            temp[counter] = elements[i];
-            counter_size++;
-            break;
-            return;
+            if((elements[i] == elements[i-1]))
+            {
+                arrayCounter[counter]++;
+                break;
+                return;
+            }
+            else{
+                temp[counter] = elements[i];
+                counter_size++;
+                break;
+                return;
+            }
         }
         if(!(elements[i] == elements[i+1])){
             temp[counter] = elements[i];
@@ -219,7 +227,7 @@ bool DSVector<T>::binarySearch(T var){
 template <typename T>
 T* DSVector<T>::printVector(){
     for(int i = 0; i < vectorSize; i++){
-        cout << elements[i];
+        cout << elements[i] << " ";
     }
     cout << endl;
 }

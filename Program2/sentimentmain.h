@@ -41,6 +41,8 @@ public:
 
     int sentiment;
     char buffer[1000];
+    DSString sentimentValue[100];
+
 
     sentimentMain();
     ~sentimentMain();

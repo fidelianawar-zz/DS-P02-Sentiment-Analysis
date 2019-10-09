@@ -181,7 +181,6 @@ void sentimentMain::readTestFile(DSString test){
                 targetData.getline(buffer,500);
                 tweetTest.push_back(buffer);
             }
-
         }
     }
     testAnalyzer();
@@ -224,8 +223,6 @@ void sentimentMain::testAnalyzer(){
     int positiveWordFrequency = 0;
     int negativeWordFrequency = 0;
 
-    DSString sentimentValue[100];
-
     for(int i = 0; i < rowNumbersTest.getSize(); i++){
         DSString tempTweet = tweetTest.at(i);
         for(int j = 0; j < tempTweet.size(); j++){
@@ -233,7 +230,11 @@ void sentimentMain::testAnalyzer(){
             if((tempTweet[j] > 64 && tempTweet[j] < 91) || (tempTweet[j] > 96 && tempTweet[j] < 123)){
                 letterCounter++;
             }
-            else if(!(tempTweet[j] > 64 && tempTweet[j] < 91) || (tempTweet[j] > 96 && tempTweet[j] < 123)){
+            else if(!((tempTweet[startCounter] > 64 && tempTweet[startCounter] < 91) || (tempTweet[startCounter] > 96 && tempTweet[startCounter] < 123))){
+                letterCounter++;
+                startCounter++;
+            }
+            else if(!((tempTweet[j] > 64 && tempTweet[j] < 91) || (tempTweet[j] > 96 && tempTweet[j] < 123))){
                 word = tempTweet.substring(startCounter, letterCounter);
                 word.toLowerCase(word);
                 letterCounter++;
@@ -241,48 +242,68 @@ void sentimentMain::testAnalyzer(){
                 wordsVectorTest.push_back(word);
             }
         }
-
         wordsVectorTest.quickSort(0,(wordsVectorTest.getSize() - 1));
         wordsVectorTest.deleteRepeated();
-        //wordsVectorTest.printVector();
+
+        // wordsVectorTest.printVector();
+
+        for(int k = 0; k < wordsVectorTest.getSize(); k++){
+            if(positiveWords.binarySearch(wordsVectorTest.at(k)) == true){
+                positiveWordFrequency++;
+            }
+        }
+        for(int m = 0; m < wordsVectorTest.getSize(); m++){
+            if(negativeWords.binarySearch(wordsVectorTest.at(m)) == true){
+                negativeWordFrequency++;
+            }
+        }
+
+        if(positiveWordFrequency >= negativeWordFrequency){
+            positiveTweet.push_back(tweetTest.at(i));
+            sentimentValue[i] = "4";
+        }
+        else if(negativeWordFrequency > positiveWordFrequency){
+            negativeTweet.push_back(tweetTest.at(i));
+            sentimentValue[i] = "0";
+        }
         positiveWordFrequency = 0;
         negativeWordFrequency = 0;
 
-
-//        for(int k = 0; k < wordsVectorTest.getSize(); k++){
-//            DSString savedWord = wordsVectorTest.at(k);
-//            if(positiveWords.binarySearch(savedWord) == true){
-//                cout << "true";
-//            }
-//        }
-
         wordsVectorTest.deleteElements();
+
         letterCounter = 0;
         startCounter = 0;
-
-        //        for(int k = 0; k < wordsVectorTest.getSize(); k++){
-        //            if(positiveWords.binarySearch(wordsVectorTest.at(k)) == true){
-        //                positiveWordFrequency++;
-        //            }
     }
+    negativeTweet.printVector();
+    cout << endl;
 }
-    //        for(int h = 0; h < wordsVectorTest.getSize(); h++){
-    //            if(negativeWords.binarySearch(wordsVectorTest.at(h)) == true){
-    //                negativeWordFrequency++;
-    //            }
-    //        }
 
-    //        if(positiveWordFrequency == negativeWordFrequency){
-    //            sentimentValue[i] = "4";
-    //        }
-    //        else if(positiveWordFrequency > negativeWordFrequency){
-    //            positiveTweet.push_back(tweetTest.at(i));
-    //            sentimentValue[i] = "4";
-    //        }
-    //        else if(positiveWordFrequency > negativeWordFrequency){
-    //            negativeTweet.push_back(tweetTest.at(i));
-    //            sentimentValue[i] = "0";
-    //        }
+
+//void sentimentMain::createAccuracyFile(char *input){
+//    ofstream outputFile;
+//    outputFile.open(input);
+//    float accuracyOutput = 0.0;
+//    int accuracyCounter = 0;
+//    accuracyOutput = accuracyCounter / rowNumbersTestTarget.getSize();
+//    outputFile << accuracyOutput << endl;
+//    for(int i = 0; i < rowNumbersTestTarget.getSize(); i++){
+//        if(sentimentTestTarget.at(i) == sentimentValue[i]){
+//            accuracyCounter++;
+//            outputFile << IDTest.at(i) << "," << " c" << endl;
+//        }
+//        else{
+//            outputFile << IDTest.at(i) << "," << " i" << endl;
+//        }
+//    }
+//}
+
+
+
+
+
+
+
+
 
 
 
@@ -365,12 +386,6 @@ void sentimentMain::testAnalyzer(){
 
 //}
 
-//creation of output file
-//void sentimentMain::createAccuracyFile(char* input){
-//    ofstream accuracyOutput;
-//    accuracyOutput.open(input);
-
-//}
 
 
 

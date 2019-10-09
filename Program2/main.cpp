@@ -44,6 +44,7 @@ int main(int argc, char *argv[])
                 testTargetFile.open(argv[i]);
                 newGame.readTestTargetFile(argv[i]);
             }
+
         }
 
     }

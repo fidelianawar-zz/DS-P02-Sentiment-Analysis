@@ -162,4 +162,15 @@ TEST_CASE("DSVector binary search 2", "[DSVector]"){
     }
 
 }
+TEST_CASE("DSVector deleterepeated2", "[DSVector]"){
+    DSVector<DSString> vector;
+    vector.push_back("search");
+    vector.push_back("me");
+    vector.push_back("for");
+    vector.push_back("words");
+    vector.push_back("me");
+    vector.quickSort(0,vector.getSize()-1);
+    vector.deleteRepeated();
+    vector.printVector();
+}
 
