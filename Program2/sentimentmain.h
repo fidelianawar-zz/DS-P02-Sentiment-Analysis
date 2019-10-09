@@ -52,18 +52,12 @@ public:
     void readTestFile(DSString test);
     void readTestTargetFile(DSString target);
 
-    void setSentiment(int classifier);
-    int getSentiment();
     void repeatedWord(DSString repeat);
 
     void classifyWords();
     void testAnalyzer();
-   // void erase();
 
     void createAccuracyFile(char *arg);
-
-    /*int *tweetIDTrain;
-    int *tweetIDTarget*/
 };
 
 #endif // SENTIMENTMAIN_H

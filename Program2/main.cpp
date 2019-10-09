@@ -8,11 +8,12 @@
 #include <iostream>
 #include <fstream>
 
-
+//runs test cases without cmd args
 int runCatchTests(int argc, char* argv[1]){
     return Catch::Session().run(argc,argv);
 }
 
+//main function for program execution
 int main(int argc, char *argv[])
 {
     ifstream trainData;

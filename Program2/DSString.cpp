@@ -12,24 +12,6 @@ DSString::DSString(){
     ssize=0;
 }
 
-//DSString::DSString(const char* x){
-//   ssize = strlen(x);
-//   ssize = int(ssize+1);
-//   data = new char[ssize];
-//   for(int i = 0; i < ssize; i++){
-//       data[i] = x[i];
-//   }
-
-//}
-
-//DSString::DSString(const DSString& r){
-//    this->ssize = r.ssize;
-//    data = new char[r.ssize+1];
-//    for(int i = 0; i < ssize; i++){
-//        data[i] = r.data[i];
-//    }
-//}
-
 DSString::DSString(const char* x){
     data = new char[strlen(x)+1];
     strcpy(data, x);
@@ -43,6 +25,7 @@ DSString::DSString(const DSString& r){
     ssize = r.ssize;
 }
 
+//destructor
 DSString::~DSString(){
    delete [] data;
 }
@@ -104,6 +87,7 @@ DSString& DSString::operator-= (const DSString& p){
     return *this;
 }
 
+//DSString operator== (const char*)
 bool DSString::operator== (const char* s){
     if(strcmp(this->data, s) == 0){
         return true;
@@ -113,28 +97,16 @@ bool DSString::operator== (const char* s){
     }
 }
 
+//bool operator== (const DSString&)
 bool DSString::operator== (const DSString &object) const{
-    if (strcmp(data, object.data) == 0)
-    {
+    if (strcmp(data, object.data) == 0){
         return true;
     }
-    else
-    {
+    else{
         return false;
     }
-
 }
 
-    //    if(strlen(data) != strlen(object.data)){
-//        return false;
-//    }
-//    for(int i = 0; i < strlen(data); i++){
-//        if(data[i] != object.data[i]){
-//            return false;
-//        }
-//        return true;
-//    }
-//}
 
 //bool operator< (const char*);
 bool DSString::operator< (const char *p){
@@ -148,6 +120,7 @@ bool DSString::operator< (const char *p){
     }
 
 }
+
 //bool operator< (const DSString&);
 bool DSString::operator< (const DSString& r){
     int n;
@@ -158,28 +131,6 @@ bool DSString::operator< (const DSString& r){
     else{
         return false;
     }
-
-    //    int minLength;
-    //    if(strlen(data) < strlen(r.data)){
-    //        minLength = strlen(data);
-    //    }
-    //    else{
-    //        minLength = strlen(r.data);
-    //    }
-    //    for(int i = 0; i < minLength; i++){
-    //        if(data[i] < r.data[i]){
-    //            return true;
-    //        }
-    //        else if(data[i] > r.data[i]){
-    //            return false;
-    //        }
-    //    }
-    //    if(strlen(data) < strlen(r.data)){
-    //        return true;
-    //    }
-    //    else{
-    //        return false;
-    //    }
 }
 
 //bool operator< (const char*);
@@ -194,6 +145,7 @@ bool DSString::operator> (const char *p){
     }
 
 }
+
 //bool operator< (const DSString&);
 bool DSString::operator> (const DSString& r){
     int n;
@@ -216,12 +168,7 @@ int DSString::size(){
     return ssize;
 }
 
-
-/* DSString substring(int a, int b)
- * parameter a: starting position
- * parameter b: num of char to copy into substring that is returned
- * b+ : count forward from a, b- : count backaward
- */
+//DSString substring(int, int);
 DSString DSString::substring(int beg, int end){
     const int length = end-beg+1;
     char* string1 = new char[length];
@@ -237,7 +184,6 @@ DSString DSString::substring(int beg, int end){
     return sub;
 }
 
-
 //simply returns data
 char* DSString::c_str(){
     return data;
@@ -248,6 +194,7 @@ std:: ostream& operator<< (std::ostream& OS, const DSString& s){
     return OS;
 }
 
+//makes all letters lowercase
 void DSString::toLowerCase(DSString capitals){
     for(int i = 0; i < capitals.size(); i++){
         if(capitals[i] > 64 && capitals[i] < 91){
@@ -257,47 +204,3 @@ void DSString::toLowerCase(DSString capitals){
 }
 
 #endif
-
-/*
- * int i,j;
-        int size=0;size=(end-beg);
-        char *newW=new char[size];
-        for(i=0,j=beg;j<end;i++,j++)
-        {
-            newW[i]=data[j];
-        }
-        return newW;
-*/
-
-
-/*
- * char* string1 = new char[end+1];
-   if(end >= 0){
-       for(int i = 0; i < end; i++){
-           string1[i] = data[beg+i];
-       }
-   }
-
-   if(end<0){
-       for(int i = 0; i > end; i--){
-            string1[i] = data[beg - end - i];
-       }
-   }
-
-   DSString sub = DSString(string1);
-   delete [] string1;
-   for(int i = 0; i<end;i++){
-       cout<<sub[i];
-   }
-   return string1;
- */
-/*
- * if(beg >= 0 && end > beg){
-        char* temp = new char[(end-beg)+1];
-        int length = end-beg+1;
-        strncpy(temp, data, length);
-        DSString res(temp);
-        delete [] temp;
-        return res;
-    }
- */
