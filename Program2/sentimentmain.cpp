@@ -32,7 +32,7 @@ void sentimentMain::readTrainFile(DSString trainFile){
     trainData.ignore(256, '\n');
 
     //reading until end of file
-    for(int i = 0; i < 1001; i++){
+    for(int i = 0; i < 10001; i++){
         for(int j = 0; j < 4; j++){
             if(j == 0){
                 trainData.getline(buffer,500, ',');
@@ -71,7 +71,7 @@ void sentimentMain::readTrainTargetFile(DSString target){
     targetData.ignore(256, '\n');
 
     //reading until end of file
-    for(int i = 0; i < 1001; i++){
+    for(int i = 0; i < 10001; i++){
         for(int j = 0; j < 3; j++){
             if(j == 0){
                 targetData.getline(buffer,500, ',');
@@ -155,18 +155,28 @@ void sentimentMain::classifyWords(){
 
 void sentimentMain::readTestFile(DSString test){
     ifstream targetData(test.c_str());
+
     if (!targetData.is_open()) {
         cerr << "Unable to open test file" << endl;
         exit(1);   // call system to stop
     }
 
+    bool running = true;
+
     targetData.ignore(256, '\n');
 
     //reading until end of file
-    for(int i = 0; i < 1001; i++){
+    for(int i = 0; running; i++){
+        if(!running){
+            break;
+        }
         for(int j = 0; j < 4; j++){
             if(j == 0){
                 targetData.getline(buffer,500, ',');
+                if(targetData.eof()){
+                    running = false;
+                    break;
+                }
                 rowNumbersTest.push_back(buffer);
             }
             else if(j == 1){
@@ -193,14 +203,21 @@ void sentimentMain::readTestTargetFile(DSString target){
         cerr << "Unable to open test target file" << endl;
         exit(1);   // call system to stop
     }
-
+    bool running = true;
     testTarget.ignore(256, '\n');
 
     //reading until end of file
-    for(int i = 0; i < 1001; i++){
+    for(int i = 0; running; i++){
+        if(!running){
+            break;
+        }
         for(int j = 0; j < 3; j++){
             if(j == 0){
                 testTarget.getline(buffer,500, ',');
+                if(testTarget.eof()){
+                    running = false;
+                    break;
+                }
                 rowNumbersTestTarget.push_back(buffer);
             }
             else if(j == 1){

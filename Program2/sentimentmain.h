@@ -40,7 +40,7 @@ public:
     DSVector<DSVector<DSString>> newVector;
 
     int sentiment;
-    char buffer[500];
+    char buffer[1000];
     DSString* sentimentValue;
 
 
